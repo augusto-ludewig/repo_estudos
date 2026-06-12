@@ -1,18 +1,25 @@
 package com.example.estudos.alura;
 
-import com.example.estudos.alura.domain.Pessoa;
+import java.util.Scanner;
+
+import com.example.estudos.alura.domain.Cep;
+import com.example.estudos.alura.service.CepService;
 import com.google.gson.Gson;
 import com.google.gson.GsonBuilder;
 
 public class Main {
     public static void main(String[] args) {
 
-        String jsonPessoa = "{\"nome\":\"Rodrigo\",\"idade\":20,\"cidade\"}";
-        //String jsonPessoa = "{\"nome\":\"Rodrigo\",\"idade\":20,\"cidade\":\"Brasília\"}";
+        Scanner scanner = new Scanner(System.in);
+        System.out.print("Digite o CEP: ");
+        String cep = scanner.nextLine();
 
-        Gson gson = new GsonBuilder().setLenient().create();
-        Pessoa pessoa = gson.fromJson(jsonPessoa, Pessoa.class);
+        CepService cepService = new CepService();
+        String cepLimpo = cepService.validarCep(cep);
+        Cep endereco = cepService.buscarCep(cepLimpo);
 
-        System.out.println("Objeto Pessoa: " + pessoa);
+        Gson gson = new GsonBuilder().setPrettyPrinting().create();
+        String json = gson.toJson(endereco);
+        System.out.println(json);
     }
 }
