@@ -15,9 +15,13 @@ public class Main {
         String cep = scanner.nextLine();
 
         CepService cepService = new CepService();
-        String cepLimpo = cepService.validarCep(cep);
-        Cep endereco = cepService.buscarCep(cepLimpo);
+        while (Boolean.FALSE.equals(cepService.validarCep(cep))){
+            System.out.println("CEP inválido.");
+            System.out.print("Digite o CEP novamente: ");
+            cep = scanner.nextLine();
+        }
 
+        Cep endereco = cepService.buscarCep(cep);
         Gson gson = new GsonBuilder().setPrettyPrinting().create();
         String json = gson.toJson(endereco);
         System.out.println(json);

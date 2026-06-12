@@ -8,13 +8,9 @@ public class CepService {
 
     private final RestTemplate restTemplate = new RestTemplate();
 
-    public String validarCep(String cep) {
+    public Boolean validarCep(String cep) {
         cep = cep.replaceAll("\\D", "");
-
-        if (cep.length() != 8) {
-            throw new IllegalArgumentException("CEP deve conter 8 dígitos.");
-        }
-        return cep;
+        return cep.length() == 8;
     }
 
     public Cep buscarCep(String cep) {
